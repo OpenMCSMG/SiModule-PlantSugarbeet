@@ -29,6 +29,7 @@ dependencies {
     compileOnly("xyz.xenondevs:particle:1.8.4")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.8.0")
     compileOnly(fileTree("libs") { include("*.jar") })
+    compileOnly(fileTree("E:\\我的世界互动\\4.种甜菜\\服务端\\plugins\\SiModuleGame-Bukkit-24.5.1.jar"))
     compileOnly("org.apache.commons:commons-lang3:3.12.0")
     // PlaceholderAPI
     compileOnly("me.clip:placeholderapi:2.11.3")

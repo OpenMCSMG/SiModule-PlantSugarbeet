@@ -77,7 +77,7 @@ public class CyanPluginLauncher extends JavaPlugin {
 
 
     public void loadData() throws IOException {
-        data = new File("plugins/ModuleGame-Bukkit/addon/"+ getDescription().getName() +"/cache.yml");
+        data = new File("plugins/SiModuleGame/addon/"+ getDescription().getName() +"/cache.yml");
         getLogger().info("加载: " + data.getAbsolutePath());
         if (!data.exists()) {
             if (data.createNewFile()) {
@@ -93,7 +93,7 @@ public class CyanPluginLauncher extends JavaPlugin {
     }
 
     private void loadConfig() {
-        arena = new File("plugins/ModuleGame-Bukkit/addon/"+ getDescription().getName() +"/arena.yml");
+        arena = new File("plugins/SiModuleGame/addon/"+ getDescription().getName() +"/arena.yml");
         if (!arena.exists()) {
             try {
                 if(arena.getParentFile().mkdirs()) {

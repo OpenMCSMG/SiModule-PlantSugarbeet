@@ -1,1 +1,41 @@
-
+# 这是一个种甜菜的插件
+# landY: 甜菜种植的高度
+# KeepTime: 保持时间
+# MaxTemplate: 最大完成数量数
+# Direction: 破坏/帮忙种植的行走放行
+# BreakFixedHandle: 固定破坏触发仅礼物专用不然破坏不计数 (格式 礼物id|执行次数|速度)
+landY: 63
+KeepTime: 15
+MaxTemplate: 5
+Direction: x+
+BreakFixedHandle:
+  - 463|5|1.5
+Spawn: minecraft,1.5,64.5,344.5,0.0,0.0
+PlantRegion:
+  pos1:
+    ==: org.bukkit.Location
+    world: minecraft
+    x: -7.0
+    y: 63.0
+    z: 347.0
+    pitch: 0.0
+    yaw: 0.0
+  pos2:
+    ==: org.bukkit.Location
+    world: minecraft
+    x: 10.0
+    y: 63.0
+    z: 362.0
+    pitch: 0.0
+    yaw: 0.0
+SprinklerHead:
+  ==: org.bukkit.inventory.ItemStack
+  type: BLOCKBUSTER_MODEL
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §b喷头
+    lore:
+      - §b右键点击种植
+      - (+NBT)
+    internal: H4sIAAAAAAAAAONiYOBi4HPKyU/Ods0rySypDElMZ2VgC05OzEmN2t/AwMDKwB6UX5JYkhrhmADisQVnZKaVRNkiS0UdDEDiRdo3gAxl9c0vKsjgYGAJzs7MY1BI0ku0etG18dmWSfrFQIFi/YK8dP2S1IqS0qJUPSCbi4EjOLWkJDMvvZiRgdUjMS8FSAN1+yXmpjIIJYEcmFRaXJJapAcxBe6USHsJBqBCpswUBvXczLzU5KLEtBIrJA3xufkpqTnxJZk5qfGpYD/CPBgB8iADAwCRbZC8BAEAAA==

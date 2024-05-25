@@ -40,6 +40,7 @@ object PlantSugarBeet {
         cyanPlugin.arenaConfig.addDefault("KeepTime", 15)
         cyanPlugin.arenaConfig.addDefault("MaxTemplate", 5)
         cyanPlugin.arenaConfig.addDefault("Direction", "x+")
+        cyanPlugin.arenaConfig.addDefault("Spawn", "minecraft,0,200,0,0,0")
         cyanPlugin.arenaConfig.addDefault("BreakFixedHandle", listOf("463|5|1.5")) // 礼物 执行多少遍
         cyanPlugin.arenaConfig.options().copyDefaults(true)
         cyanPlugin.arenaConfig.options().copyHeader(true)

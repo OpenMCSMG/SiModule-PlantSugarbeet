@@ -81,6 +81,7 @@ public class CyanPluginLauncher extends JavaPlugin {
                     Files.copy(is, arenaPath);
                 }
             }
+            arena = arenaPath.toFile();
             arenaConfig = YamlConfiguration.loadConfiguration(arenaPath.toFile());
             // 创建 cache.yml 文件
             Path dataPath = Paths.get("plugins/SiModuleGame/addon", getDescription().getName(), "cache.yml");
@@ -91,8 +92,8 @@ public class CyanPluginLauncher extends JavaPlugin {
             } else {
                 getLogger().info("加载: " + dataPath.toAbsolutePath());
             }
+            data = dataPath.toFile();
             dataConfig = YamlConfiguration.loadConfiguration(dataPath.toFile());
-
             // 加载数据
             dataConfig.getKeys(false).forEach(key -> {
                 getLogger().info("Load data: " + key + " -> " + dataConfig.get(key));

@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * 嵌套框架
@@ -22,18 +24,16 @@ import java.nio.file.Files;
 public class CyanPluginLauncher extends JavaPlugin {
 
     public static CyanPluginLauncher cyanPlugin;
-
+    public File arena;
+    public YamlConfiguration arenaConfig;
+    public YamlConfiguration dataConfig;
+    private File data;
     public CyanPluginLauncher() {
         cyanPlugin = this;
         KotlinBootstrap.init();
         // xyz.xenondevs:particle:1.8.4
-        KotlinBootstrap.loadDepend("xyz.xenondevs","particle","1.8.4");
+        KotlinBootstrap.loadDepend("xyz.xenondevs", "particle", "1.8.4");
     }
-
-    public File arena;
-    public YamlConfiguration arenaConfig;
-    private File data;
-    public YamlConfiguration dataConfig;
 
     public void saveData() {
         try {
@@ -42,7 +42,6 @@ public class CyanPluginLauncher extends JavaPlugin {
             e.printStackTrace();
         }
     }
-
 
 
     public void registerCommand(Command command) {
@@ -65,49 +64,42 @@ public class CyanPluginLauncher extends JavaPlugin {
     @Override
     public void onEnable() {
         loadConfig();
-        try {
-            loadData();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         PlantSugarBeet.INSTANCE.load();
         registerCommand(MainTestCommand.INSTANCE);
         registerCommand(SetUpCommand.INSTANCE);
     }
 
 
-    public void loadData() throws IOException {
-        data = new File("plugins/SiModuleGame/addon/"+ getDescription().getName() +"/cache.yml");
-        getLogger().info("加载: " + data.getAbsolutePath());
-        if (!data.exists()) {
-            if (data.createNewFile()) {
-                getLogger().info("创建一个新的文件: " + data.getName());
-            } else {
-                getLogger().info("错误加载: " + data.getName());
-            }
-        }
-        dataConfig = YamlConfiguration.loadConfiguration(data);
-        dataConfig.getKeys(false).forEach(key -> {
-            getLogger().info("Load data: " + key + " -> " + dataConfig.get(key));
-        });
-    }
-
     private void loadConfig() {
-        arena = new File("plugins/SiModuleGame/addon/"+ getDescription().getName() +"/arena.yml");
-        if (!arena.exists()) {
-            try {
-                if(arena.getParentFile().mkdirs()) {
-                    InputStream is = getResource("arena.yml");
-                    if (is != null) {
-                        Files.copy(is, arena.toPath());
-                    }
+        try {
+            // 创建 arena.yml 文件
+            Path arenaPath = Paths.get("plugins/SiModuleGame/addon", getDescription().getName(), "arena.yml");
+            Files.createDirectories(arenaPath.getParent());
+            if (Files.notExists(arenaPath)) {
+                InputStream is = getResource("arena.yml");
+                if (is != null) {
+                    Files.copy(is, arenaPath);
                 }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
-        }
-        arenaConfig = YamlConfiguration.loadConfiguration(arena);
-    }
+            arenaConfig = YamlConfiguration.loadConfiguration(arenaPath.toFile());
+            // 创建 cache.yml 文件
+            Path dataPath = Paths.get("plugins/SiModuleGame/addon", getDescription().getName(), "cache.yml");
+            Files.createDirectories(dataPath.getParent());
+            if (Files.notExists(dataPath)) {
+                Files.createFile(dataPath);
+                getLogger().info("创建一个新的文件: " + dataPath.getFileName());
+            } else {
+                getLogger().info("加载: " + dataPath.toAbsolutePath());
+            }
+            dataConfig = YamlConfiguration.loadConfiguration(dataPath.toFile());
 
+            // 加载数据
+            dataConfig.getKeys(false).forEach(key -> {
+                getLogger().info("Load data: " + key + " -> " + dataConfig.get(key));
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

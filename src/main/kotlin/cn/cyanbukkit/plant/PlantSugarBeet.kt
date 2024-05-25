@@ -24,10 +24,10 @@ import org.bukkit.scheduler.BukkitRunnable
  */
 object PlantSugarBeet {
 
-    val spawnLocation: String = cyanPlugin.arenaConfig.getString("Spawn")
-    val landBlockY = cyanPlugin.arenaConfig.getInt("landY")
-    val maxTemplate = cyanPlugin.arenaConfig.getInt("MaxTemplate")
-    val walkDirection: String = cyanPlugin.arenaConfig.getString("Direction")
+    var spawnLocation: String = ""
+    var landBlockY = 0
+    var maxTemplate = 0
+    var walkDirection: String = ""
     lateinit var region: Region
     lateinit var sprinklerHead : ItemStack
 
@@ -51,6 +51,11 @@ object PlantSugarBeet {
                 "BreakFixedHandle: 固定破坏触发仅礼物专用不然破坏不计数 (格式 礼物id|执行次数|速度)")
         cyanPlugin.arenaConfig.save(cyanPlugin.arena)
         cyanPlugin.logger.info("注意：这里玩法破坏是在addon中设置而不是本体Js ！")
+
+        spawnLocation = cyanPlugin.arenaConfig.getString("Spawn")
+        landBlockY = cyanPlugin.arenaConfig.getInt("landY")
+        maxTemplate = cyanPlugin.arenaConfig.getInt("MaxTemplate")
+        walkDirection = cyanPlugin.arenaConfig.getString("Direction") ?: "x+"
 
         val block1 = (cyanPlugin.arenaConfig.get("PlantRegion.pos1") as Location)
         val block2 = (cyanPlugin.arenaConfig.get("PlantRegion.pos2") as Location)
